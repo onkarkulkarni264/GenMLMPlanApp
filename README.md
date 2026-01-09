@@ -18,30 +18,17 @@ GenMLMPlanApp is a comprehensive ASP.NET Core MVC application designed to manage
 - **Views**: UI pages using Razor syntax.
 
 ## Database Setup
-1. **Prerequisites**: Ensure SQL Server is installed and running.
-2. **Connection String**: The project is configured to use the following connection string in `appsettings.json`:
+2. **Connection String**: The project is configured to use the folowing connection string in `appsettings.json`:
    `Server=OKsPC\\SQLEXPRESS;Database=GenMLMPlanApp;TrustServerCertificate=True;Trusted_Connection=True;`
    Update this if your SQL Server instance is different.
 3. **Initialization**:
-   - Open **SQL Server Management Studio (SSMS)**.
-   - Run the provided `DbScript.sql` file. This will:
-     - Create the `GenMLMPlanApp` database.
-     - Create the `Users` table with relationships.
-     - Insert sample seed data (10 users).
-   - Alternatively, you can use EF Core migrations:
-     ```powershell
-     dotnet ef database update
-     ```
-     (Note: Seed data is in the SQL script, so running the script is recommended).
+   - Opn **SQL Server**.
+   - Run the provided `DbScript.sql` file over email.
 
 ## How to Run the Project
 1. Open the project folder in Visual Studio or VS Code.
 2. Open a terminal in the project directory.
-3. Run the application:
-   ```powershell
-   dotnet run
-   ```
-4. Access the application in your browser at `https://localhost:5001` or the port shown in the terminal (e.g., `http://localhost:5000`).
+3. Run the application
 
 ## Credentials
 
