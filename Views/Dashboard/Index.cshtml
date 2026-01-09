@@ -1,0 +1,84 @@
+@model GenMLMPlanApp.ViewModels.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="mb-4">
+    <h2>Welcome, @Model.CurrentUser.FullName</h2>
+    <p class="text-muted">User ID: <strong>@Model.CurrentUser.UserId</strong></p>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-header">Direct Referrals (Level 1)</div>
+            <div class="card-body">
+                <h5 class="card-title display-4">@Model.DirectReferralsCount</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-header">Total Team (Level 1-3)</div>
+            <div class="card-body">
+                <h5 class="card-title display-4">@Model.TeamSize</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-header">Total Income</div>
+            <div class="card-body">
+                <h5 class="card-title display-4">₹@Model.TotalIncome</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        Your Direct Referrals
+    </div>
+    <div class="card-body">
+        @if (Model.DirectReferrals.Any())
+        {
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Joined Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.DirectReferrals)
+                    {
+                        <tr>
+                            <td>@user.UserId</td>
+                            <td>@user.FullName</td>
+                            <td>@user.Email</td>
+                            <td>@user.CreatedAt.ToShortDateString()</td>
+                            <td>
+                                @if (user.IsActive)
+                                {
+                                    <span class="badge bg-success">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Inactive</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>You have referred no one yet. Share your User ID <strong>@Model.CurrentUser.UserId</strong> to sponsor others!</p>
+        }
+    </div>
+</div>

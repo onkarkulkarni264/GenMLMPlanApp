@@ -1,0 +1,66 @@
+@model IEnumerable<GenMLMPlanApp.Models.User>
+
+@{
+    ViewData["Title"] = "Admin Panel";
+}
+
+<h2>Admin Panel - User Management</h2>
+<div class="mb-3">
+    <a asp-action="Tree" class="btn btn-info text-white">View Genealogy Tree</a>
+</div>
+<hr />
+
+<table class="table table-bordered table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>User ID</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Sponsor</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserId</td>
+                <td>@user.FullName</td>
+                <td>@user.Email</td>
+                <td>
+                    @if (user.Sponsor != null)
+                    {
+                        @($"{user.Sponsor.FullName} ({user.Sponsor.UserId})")
+                    }
+                    else
+                    {
+                        <span class="text-muted">Root</span>
+                    }
+                </td>
+                <td>
+                    @if (user.IsActive)
+                    {
+                        <span class="badge bg-success">Active</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Inactive</span>
+                    }
+                </td>
+                <td>
+                    <form asp-action="ToggleStatus" asp-route-id="@user.Id" method="post">
+                        @if (user.IsActive)
+                        {
+                            <button type="submit" class="btn btn-sm btn-danger">Deactivate</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-sm btn-success">Activate</button>
+                        }
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,19 @@
+@model GenMLMPlanApp.Models.User
+
+<div class="user-node @(Model.IsActive ? "active" : "inactive")">
+    <strong>@Model.FullName</strong> 
+    <span class="text-muted">(@Model.UserId)</span>
+    <span class="badge">@(Model.IsActive ? "Active" : "Inactive")</span>
+</div>
+
+@if (Model.DirectReferrals != null && Model.DirectReferrals.Any())
+{
+    <ul>
+        @foreach (var child in Model.DirectReferrals)
+        {
+            <li>
+                @await Html.PartialAsync("_TreeNode", child)
+            </li>
+        }
+    </ul>
+}

@@ -1,0 +1,72 @@
+@model IEnumerable<GenMLMPlanApp.Models.User>
+
+@{
+    ViewData["Title"] = "Genealogy Tree";
+}
+
+<div class="row mb-3">
+    <div class="col">
+        <h2>Genealogy Tree</h2>
+    </div>
+    <div class="col text-end">
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>
+
+<div class="card shadow">
+    <div class="card-body">
+        <ul class="tree-list">
+            @foreach (var root in Model)
+            {
+                <li>
+                    @await Html.PartialAsync("_TreeNode", root)
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+<style>
+    .tree-list, .tree-list ul {
+        list-style-type: none;
+        padding-left: 20px;
+    }
+    .tree-list li {
+        margin: 5px 0;
+        position: relative;
+    }
+    .tree-list li::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -15px;
+        border-left: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        width: 15px;
+        height: 15px;
+    }
+    .tree-list li::after {
+        position: absolute;
+        content: '';
+        top: 15px;
+        left: -15px;
+        border-left: 1px solid #ccc;
+        height: 100%;
+    }
+    .tree-list li:last-child::after {
+        display: none;
+    }
+    .user-node {
+        display: inline-block;
+        padding: 5px 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f8f9fa;
+    }
+    .user-node.active .badge {
+        background-color: #198754;
+    }
+    .user-node.inactive .badge {
+        background-color: #dc3545;
+    }
+</style>
